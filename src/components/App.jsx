@@ -36,10 +36,12 @@ class App extends Component {
     });
   };
 
-  deleteContact = id => {
+  deleteContact = index => {
     this.setState(prevState => {
+      console.log(index);
       const newListOfContacts = [...prevState.contacts];
-      newListOfContacts.splice(id, 1);
+
+      newListOfContacts.splice(index, 1);
       return { contacts: newListOfContacts };
     });
   };
