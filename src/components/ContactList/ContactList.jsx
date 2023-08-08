@@ -16,6 +16,7 @@ const ContactList = ({ contacts, deleteContact }) => {
     </ul>
   );
 };
+
 ContactList.propTypes = {
   deleteContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
