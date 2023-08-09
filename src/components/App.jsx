@@ -46,7 +46,7 @@ class App extends Component {
   };
 
   filteredContacts = () => {
-    if (this.state.contacts.length > 0) {
+    if (this.state.contacts !== []) {
       return this.state.contacts
         .map(
           contact =>
