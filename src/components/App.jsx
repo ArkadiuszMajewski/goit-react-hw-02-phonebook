@@ -3,19 +3,23 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import Filter from './Filter/Filter';
+import { paste } from '@testing-library/user-event/dist/paste';
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
   };
   addContact = ({ name, number }) => {
     this.setState(({ contacts }) => {
-      if (contacts !== null) {
-        let newContactAdded = contacts.find(
-          contact => contact.name.toLowerCase() === name.toLowerCase()
-        );
-      }
+      let newContactAdded = contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      );
 
       if (newContactAdded) {
         alert(`${name} is already in contacts.`);
@@ -35,7 +39,7 @@ class App extends Component {
 
   deleteContact = index => {
     this.setState(prevState => {
-      // console.log(index);
+      console.log(index);
       const newListOfContacts = [...prevState.contacts];
 
       newListOfContacts.splice(index, 1);
@@ -48,7 +52,7 @@ class App extends Component {
   };
 
   filteredContacts = () => {
-    if (this.state.contacts !== null) {
+    if (this.state.contacts.length > 0) {
       return this.state.contacts
         .map(
           contact =>
@@ -61,12 +65,13 @@ class App extends Component {
   };
 
   componentDidUpdate() {
-    // console.log('sadasds');
+    console.log('sadasds');
     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
   componentDidMount() {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     const localStorageElem = localStorage.getItem('contacts');
-    // console.log(localStorageElem);
+    console.log(localStorageElem);
     this.setState(prevState => ({
       ...prevState,
       contacts: JSON.parse(localStorageElem),
@@ -75,7 +80,6 @@ class App extends Component {
 
   render() {
     const newContacts = this.filteredContacts();
-    // console.log(newContacts);
     return (
       <div
         style={{
@@ -91,7 +95,7 @@ class App extends Component {
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         <Filter value={this.state.filter} onChange={this.filterOnChange} />
-        {newContacts !== [] ? (
+        {newContacts.length > 0 ? (
           <ContactList
             contacts={newContacts}
             deleteContact={this.deleteContact}
