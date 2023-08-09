@@ -3,15 +3,11 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import Filter from './Filter/Filter';
+import { paste } from '@testing-library/user-event/dist/paste';
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
   addContact = ({ name, number }) => {
@@ -38,7 +34,7 @@ class App extends Component {
 
   deleteContact = index => {
     this.setState(prevState => {
-      console.log(index);
+      // console.log(index);
       const newListOfContacts = [...prevState.contacts];
 
       newListOfContacts.splice(index, 1);
@@ -51,17 +47,34 @@ class App extends Component {
   };
 
   filteredContacts = () => {
-    return this.state.contacts
-      .map(
-        contact =>
-          contact.name
-            .toLowerCase()
-            .includes(this.state.filter.toLowerCase()) && contact
-      )
-      .filter(contact => contact !== false);
+    if (this.state.contacts.length > 0) {
+      return this.state.contacts
+        .map(
+          contact =>
+            contact.name
+              .toLowerCase()
+              .includes(this.state.filter.toLowerCase()) && contact
+        )
+        .filter(contact => contact !== false);
+    }
   };
+
+  componentDidUpdate() {
+    // console.log('sadasds');
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
+  componentDidMount() {
+    const localStorageElem = localStorage.getItem('contacts');
+    // console.log(localStorageElem);
+    this.setState(prevState => ({
+      ...prevState,
+      contacts: JSON.parse(localStorageElem),
+    }));
+  }
+
   render() {
     const newContacts = this.filteredContacts();
+    // console.log(newContacts);
     return (
       <div
         style={{
@@ -77,7 +90,7 @@ class App extends Component {
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         <Filter value={this.state.filter} onChange={this.filterOnChange} />
-        {newContacts.length > 0 ? (
+        {newContacts !== [] ? (
           <ContactList
             contacts={newContacts}
             deleteContact={this.deleteContact}
