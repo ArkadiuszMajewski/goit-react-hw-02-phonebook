@@ -3,7 +3,6 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import Filter from './Filter/Filter';
-import { paste } from '@testing-library/user-event/dist/paste';
 
 class App extends Component {
   state = {
