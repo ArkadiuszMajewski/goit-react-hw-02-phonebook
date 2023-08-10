@@ -62,7 +62,7 @@ class App extends Component {
     console.log(this.state);
     this.setState(prevState => ({
       ...prevState,
-      contacts: JSON.parse(localStorageElem),
+      contacts: parslocalStorageElem,
     }));
   }
 
