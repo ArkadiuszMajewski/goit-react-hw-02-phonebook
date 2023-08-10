@@ -59,7 +59,7 @@ class App extends Component {
   componentDidMount() {
     const localStorageElem = localStorage.getItem('contacts');
     const parslocalStorageElem = JSON.parse(localStorageElem);
-    console.log(this.state);
+    // console.log(this.state);
     this.setState(prevState => ({
       ...prevState,
       contacts: parslocalStorageElem,
@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevState) {
-    console.log(prevState);
+    // console.log(prevState);
     prevState.contacts !== this.state.contacts &&
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
