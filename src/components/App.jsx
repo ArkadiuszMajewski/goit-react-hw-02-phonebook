@@ -6,7 +6,9 @@ import Filter from './Filter/Filter';
 
 class App extends Component {
   state = {
-    contacts: JSON.parse(localStorage.getItem('contact')) ?? [],
+    contacts: [],
+
+    // JSON.parse(localStorage.getItem('contact')) ?? [],
     filter: '',
   };
   addContact = ({ name, number }) => {
@@ -55,25 +57,25 @@ class App extends Component {
       )
       .filter(contact => contact !== false);
   };
+  // componentDidMount() {
+  //   localStorage.setItem('contact', JSON.stringify(this.state.contacts));
+  //   const localStorageElem = localStorage.getItem('contact');
+  //   console.log(localStorageElem);
+  //   this.setState(prevState => ({
+  //     ...prevState,
+  //     contacts: JSON.parse(localStorageElem),
+  //   }));
+  // }
 
-  componentDidUpdate() {
-    console.log('sadasds');
-    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  }
+  // componentDidUpdate() {
+  //   console.log(prevState);
+  //   localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  // }
+
   componentDidUpdate(prevState) {
     console.log(prevState);
     prevState.contacts !== this.state.contacts &&
-      localStorage.setItem('contact', JSON.stringify(this.state.contacts));
-  }
-
-  componentDidMount() {
-    localStorage.setItem('contact', JSON.stringify(this.state.contacts));
-    const localStorageElem = localStorage.getItem('contact');
-    console.log(localStorageElem);
-    this.setState(prevState => ({
-      ...prevState,
-      contacts: JSON.parse(localStorageElem),
-    }));
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
 
   render() {
