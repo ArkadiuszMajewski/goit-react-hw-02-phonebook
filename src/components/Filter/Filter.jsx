@@ -8,9 +8,9 @@ const Filter = ({ value, onChange }) => (
   </label>
 );
 
-// Filter.propTypes = {
-//   deleteContact: PropTypes.func,
-//   // value: PropTypes.string,
-// };
+Filter.propTypes = {
+  deleteContact: PropTypes.func,
+  value: PropTypes.string,
+};
 
 export default Filter;
