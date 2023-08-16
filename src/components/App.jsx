@@ -51,14 +51,16 @@ class App extends Component {
   };
 
   filteredContacts = () => {
-    return this.state.contacts
-      .map(
-        contact =>
-          contact.name
-            .toLowerCase()
-            .includes(this.state.filter.toLowerCase()) && contact
-      )
-      .filter(contact => contact !== false);
+    if (this.state.contacts !== null) {
+      return this.state.contacts
+        .map(
+          contact =>
+            contact.name
+              .toLowerCase()
+              .includes(this.state.filter.toLowerCase()) && contact
+        )
+        .filter(contact => contact !== false);
+    } else return;
   };
 
   componentDidMount() {
