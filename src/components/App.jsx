@@ -14,6 +14,7 @@ class App extends Component {
     ],
     filter: '',
   };
+
   addContact = ({ name, number }) => {
     this.setState(({ contacts }) => {
       let newContactAdded = contacts.find(

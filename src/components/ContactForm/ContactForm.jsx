@@ -13,7 +13,7 @@ class ContactForm extends Component {
 
   handleChange = evt => {
     const { name, value } = evt.target;
-    this.setState(prevState => ({ ...prevState, [name]: value }));
+    this.setState({ [name]: value });
   };
 
   handleSubmit = evt => {
